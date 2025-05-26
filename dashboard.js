@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
-    const BASE_URL = "http://localhost:5000";
+    const BASE_URL = "https://note-backend-954509048139.us-central1.run.app";
 
     const notesContainer = document.getElementById("notesList");
     const saveButton = document.getElementById("saveNote");
