@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.4/css/bulma.min.css">
+</head>
+<body>
+    <section class="hero has-background-grey-light is-fullheight is-fullwidth">
+      <div class="hero-body">
+        <div class="container">
+            <div class="columns is-centered">
+                <div class="column is-4-desktop">
+                    <form id="loginForm" class="box">
+                        <div style="text-align: center;">
+                            <label class="label" style="font-size: 20px;">Login</label>
+                        </div>
+                        <div class="field mt-5">
+                            <label class="label">Email</label>
+                            <div class="control">
+                                <input type="text" class="input" placeholder='Email' name="email"  required/>
+                            </div>
+                        </div>
+                        <div class="field mt-5">
+                            <label class="label">Password</label>
+                            <div class="control">
+                                <input type="password" class="input" placeholder='*****' name="password" required/>
+                            </div>
+                        </div>
+                        <div>
+                            <p>Don't have an account? <a href="register.html">Register</a></p>
+                        </div>
+                        <div class="field mt-5">
+                            <button class="button is-info is-fullwidth">Login</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+      </div>
+    </section>
+
+    <script>
+        document.getElementById("loginForm").addEventListener("submit", async function(e) {
+            e.preventDefault(); // Mencegah reload
+            const email = document.querySelector('input[name="email"]').value;
+            const password = document.querySelector('input[name="password"]').value;
+
+            const response = await fetch("http://localhost:5000/auth/login", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ email, password }),
+                credentials: "include"
+            });
+
+            const result = await response.json();
+
+            let accessToken = null;
+
+            if (response.ok) {
+                alert("Login berhasil!");
+                localStorage.setItem("accessToken", result.accessToken);
+                // redirect ke halaman dashboard, misalnya
+                window.location.href = "/dashboard.html";
+            } else {
+                alert("Login gagal: " + result.message);
+            }
+        });
+    </script>
+</body>
+</html>
