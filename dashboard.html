@@ -76,7 +76,7 @@
 <script>
 document.getElementById("logoutBtn").addEventListener("click", async function () {
     try {
-        const response = await fetch("http://localhost:5000/auth/delete", {
+        const response = await fetch(`https://note-backend-954509048139.us-central1.run.app/auth/delete`, {
             method: "DELETE",
             credentials: "include", // Kirim cookie (jika pakai cookie untuk session)
         });
